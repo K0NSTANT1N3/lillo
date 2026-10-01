@@ -1,0 +1,178 @@
+{%- comment -%}
+  Full-width banner slider. Each slide is a block: image (optional), small label, heading, text, button.
+  Without an image a slide shows a soft colour gradient, so the homepage looks finished before real banners exist.
+{%- endcomment -%}
+<section class="lillo-hero" data-autoplay="{{ section.settings.autoplay_seconds }}">
+  <div class="lillo-hero__track" id="LilloHero-{{ section.id }}">
+    {%- for block in section.blocks -%}
+      <div
+        class="lillo-hero__slide lillo-hero__slide--{{ block.settings.tone }}"
+        style="--slide-from: {{ block.settings.color_from }}; --slide-to: {{ block.settings.color_to }};"
+        {{ block.shopify_attributes }}
+      >
+        {%- if block.settings.image -%}
+          {%- liquid
+            assign loading = 'lazy'
+            if forloop.first
+              assign loading = 'eager'
+            endif
+          -%}
+          {{
+            block.settings.image
+            | image_url: width: 2400
+            | image_tag: class: 'lillo-hero__img', sizes: '100vw', widths: '800, 1200, 1600, 2000, 2400', loading: loading
+          }}
+        {%- endif -%}
+        <div class="lillo-hero__content lillo-wrap">
+          {%- if block.settings.eyebrow != blank -%}
+            <p class="lillo-eyebrow lillo-hero__eyebrow">{{ block.settings.eyebrow }}</p>
+          {%- endif -%}
+          <h2 class="lillo-hero__heading">{{ block.settings.heading }}</h2>
+          {%- if block.settings.text != blank -%}
+            <p class="lillo-hero__text">{{ block.settings.text }}</p>
+          {%- endif -%}
+          {%- if block.settings.button_label != blank -%}
+            <a
+              class="lillo-btn{% if block.settings.tone == 'dark' %} lillo-btn--light{% endif %}"
+              href="{{ block.settings.link | default: routes.all_products_collection_url }}"
+            >
+              {{- block.settings.button_label }} →
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+  {%- if section.blocks.size > 1 -%}
+    <div class="lillo-hero__dots" role="tablist">
+      {%- for block in section.blocks -%}
+        <button
+          type="button"
+          class="lillo-hero__dot"
+          data-index="{{ forloop.index0 }}"
+          aria-label="სლაიდი {{ forloop.index }}"
+          {% if forloop.first %}
+            aria-current="true"
+          {% endif %}
+        ></button>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>
+
+<style>
+  .lillo-hero { position: relative; background: var(--lillo-bg); }
+  .lillo-hero__track {
+    display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+  .lillo-hero__track::-webkit-scrollbar { display: none; }
+  .lillo-hero__slide {
+    position: relative; flex: 0 0 100%; scroll-snap-align: start;
+    min-height: clamp(420px, 62vh, 640px);
+    display: flex; align-items: center;
+    background: linear-gradient(120deg, var(--slide-from), var(--slide-to));
+    overflow: hidden;
+  }
+  .lillo-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .lillo-hero__slide--dark::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(20,16,12,.55), rgba(20,16,12,0) 70%);
+  }
+  .lillo-hero__content { position: relative; z-index: 1; width: 100%; display: grid; gap: 18px; justify-items: start; }
+  .lillo-hero__heading {
+    font-family: var(--font-heading--family); font-weight: 600;
+    font-size: clamp(2rem, 4.6vw, 3.6rem); line-height: 1.15; margin: 0; max-width: 14ch;
+    color: var(--lillo-ink);
+  }
+  .lillo-hero__text { margin: 0; max-width: 42ch; font-size: 1.05rem; line-height: 1.6; color: var(--lillo-muted); }
+  .lillo-hero__slide--dark .lillo-hero__heading,
+  .lillo-hero__slide--dark .lillo-hero__text,
+  .lillo-hero__slide--dark .lillo-hero__eyebrow { color: #fff; }
+  .lillo-hero__dots {
+    position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%);
+    display: flex; gap: 8px;
+  }
+  .lillo-hero__dot {
+    width: 9px; height: 9px; padding: 0; border: 0; border-radius: 999px; cursor: pointer;
+    background: rgba(30,26,22,.25); transition: width .3s ease, background .3s ease;
+  }
+  .lillo-hero__dot[aria-current='true'] { width: 26px; background: var(--lillo-ink); }
+</style>
+
+<script>
+  (() => {
+    const root = document.currentScript.previousElementSibling.previousElementSibling;
+    const track = root.querySelector('.lillo-hero__track');
+    const dots = [...root.querySelectorAll('.lillo-hero__dot')];
+    if (!dots.length) return;
+
+    const go = (i) => track.scrollTo({ left: i * track.clientWidth });
+    const current = () => Math.round(track.scrollLeft / track.clientWidth);
+
+    dots.forEach((dot) => dot.addEventListener('click', () => go(Number(dot.dataset.index))));
+    track.addEventListener('scroll', () => {
+      const i = current();
+      dots.forEach((d, n) => d.setAttribute('aria-current', n === i ? 'true' : 'false'));
+    }, { passive: true });
+
+    const seconds = Number(root.dataset.autoplay);
+    if (seconds > 0 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let timer = setInterval(() => go((current() + 1) % dots.length), seconds * 1000);
+      root.addEventListener('pointerenter', () => clearInterval(timer));
+      root.addEventListener('pointerleave', () => {
+        timer = setInterval(() => go((current() + 1) % dots.length), seconds * 1000);
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "lillo: ბანერები",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "range",
+      "id": "autoplay_seconds",
+      "label": "ავტომატური გადასვლა (წამი, 0 = გამორთული)",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 6
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "სლაიდი",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "სურათი" },
+        {
+          "type": "select",
+          "id": "tone",
+          "label": "ტექსტის ფერი",
+          "options": [
+            { "value": "light", "label": "მუქი ტექსტი (ღია ფონზე)" },
+            { "value": "dark", "label": "თეთრი ტექსტი (მუქ სურათზე)" }
+          ],
+          "default": "light"
+        },
+        { "type": "color", "id": "color_from", "label": "ფონი (სურათის გარეშე) 1", "default": "#efe7dc" },
+        { "type": "color", "id": "color_to", "label": "ფონი (სურათის გარეშე) 2", "default": "#fbf8f3" },
+        { "type": "text", "id": "eyebrow", "label": "პატარა წარწერა" },
+        { "type": "text", "id": "heading", "label": "სათაური", "default": "ახალი კოლექცია" },
+        { "type": "textarea", "id": "text", "label": "ტექსტი" },
+        { "type": "text", "id": "button_label", "label": "ღილაკის ტექსტი", "default": "ნახვა" },
+        { "type": "url", "id": "link", "label": "ღილაკის ბმული" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "lillo: ბანერები",
+      "blocks": [{ "type": "slide" }, { "type": "slide" }]
+    }
+  ]
+}
+{% endschema %}

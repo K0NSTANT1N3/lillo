@@ -1,0 +1,48 @@
+{%- comment -%}
+  Product card for lillo sections.
+  Accepts:
+  - product: product object (required)
+  - show_perks: boolean, show the "free delivery" / "quality guarantee" lines
+{%- endcomment -%}
+{%- liquid
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+    assign saved = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price
+  endif
+-%}
+<a class="lillo-card" href="{{ product.url }}">
+  <div class="lillo-card__media">
+    {%- if product.featured_media -%}
+      {{
+        product.featured_media
+        | image_url: width: 800
+        | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 25vw, 50vw', widths: '300, 400, 600, 800', alt: product.title
+      }}
+    {%- else -%}
+      {{ 'product-apparel-1' | placeholder_svg_tag }}
+    {%- endif -%}
+    {%- if on_sale -%}
+      <span class="lillo-card__badge">-{{ saved }}%</span>
+    {%- endif -%}
+  </div>
+  <p class="lillo-card__title">{{ product.title }}</p>
+  <div class="lillo-card__price">
+    <span class="lillo-card__now{% if on_sale %} lillo-card__now--sale{% endif %}">{{ product.price | money }}</span>
+    {%- if on_sale -%}
+      <span class="lillo-card__was">{{ product.compare_at_price | money }}</span>
+    {%- endif -%}
+  </div>
+  {%- if show_perks -%}
+    <ul class="lillo-card__perks">
+      <li>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg>
+        უფასო მიწოდება
+      </li>
+      <li>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 1.5l5.5 2v4c0 3.3-2.3 5.8-5.5 7-3.2-1.2-5.5-3.7-5.5-7v-4z"/></svg>
+        ხარისხის გარანტია
+      </li>
+    </ul>
+  {%- endif -%}
+</a>

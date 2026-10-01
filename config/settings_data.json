@@ -103,10 +103,10 @@
     "variant_button_radius": 14,
     "variant_button_width": "equal-width-buttons",
     "color_palette": {
-      "background": "#ffffff",
-      "foreground": "#000000",
-      "color1": "#333333",
-      "color2": "#DFDFDF"
+      "background": "#fbf8f3",
+      "foreground": "#1e1a16",
+      "color1": "#6b5e52",
+      "color2": "#efe7dc"
     }
   },
   "presets": {

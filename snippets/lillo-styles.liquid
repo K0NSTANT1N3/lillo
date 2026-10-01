@@ -1,0 +1,68 @@
+{%- comment -%}
+  lillo brand layer: Georgian fonts + shared tokens used by the lillo-* sections.
+  Rendered in layout/theme.liquid after the theme's own font/color variables so it can override them.
+{%- endcomment -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&family=Noto+Serif+Georgian:wght@500;600;700&display=swap"
+>
+<style>
+  :root {
+    --font-body--family: 'Noto Sans Georgian', system-ui, sans-serif;
+    --font-subheading--family: 'Noto Sans Georgian', system-ui, sans-serif;
+    --font-heading--family: 'Noto Serif Georgian', Georgia, serif;
+    --font-accent--family: 'Noto Serif Georgian', Georgia, serif;
+
+    --lillo-bg: #fbf8f3;
+    --lillo-surface: #ffffff;
+    --lillo-sand: #efe7dc;
+    --lillo-ink: #1e1a16;
+    --lillo-muted: #6b5e52;
+    --lillo-line: #e6ddd1;
+    --lillo-accent: #a8432a;
+    --lillo-ok: #3f7d5a;
+    --lillo-radius: 14px;
+    --lillo-max: 1280px;
+  }
+
+  .lillo-wrap { max-width: var(--lillo-max); margin-inline: auto; padding-inline: 20px; }
+  .lillo-eyebrow { font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lillo-muted); }
+  .lillo-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 26px; border-radius: 999px;
+    background: var(--lillo-ink); color: #fff; text-decoration: none;
+    font-weight: 600; font-size: 0.95rem;
+    transition: transform .2s ease, background .2s ease;
+  }
+  .lillo-btn:hover { background: var(--lillo-accent); transform: translateY(-1px); }
+  .lillo-btn--light { background: #fff; color: var(--lillo-ink); }
+  .lillo-btn--light:hover { background: var(--lillo-ink); color: #fff; }
+
+  /* Product card shared by lillo sections */
+  .lillo-card { display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: inherit; }
+  .lillo-card__media {
+    position: relative; aspect-ratio: 4 / 5; overflow: hidden;
+    border-radius: var(--lillo-radius); background: var(--lillo-sand);
+  }
+  .lillo-card__media img, .lillo-card__media svg {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .5s ease;
+  }
+  .lillo-card:hover .lillo-card__media img { transform: scale(1.04); }
+  .lillo-card__media svg { opacity: .35; }
+  .lillo-card__badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--lillo-accent); color: #fff;
+    font-size: .75rem; font-weight: 700; padding: 5px 10px; border-radius: 999px;
+  }
+  .lillo-card__title { font-size: .95rem; font-weight: 500; line-height: 1.4; margin: 0; }
+  .lillo-card__price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+  .lillo-card__now { font-weight: 700; font-size: 1.05rem; }
+  .lillo-card__now--sale { color: var(--lillo-accent); }
+  .lillo-card__was { color: var(--lillo-muted); text-decoration: line-through; font-size: .9rem; }
+  .lillo-card__perks { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: .8rem; color: var(--lillo-muted); }
+  .lillo-card__perks li { display: flex; align-items: center; gap: 6px; }
+  .lillo-card__perks svg { width: 14px; height: 14px; color: var(--lillo-ok); flex: none; }
+</style>
