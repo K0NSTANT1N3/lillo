@@ -1,0 +1,56 @@
+{
+  "categories": [
+    {
+      "title": "ტანსაცმელი",
+      "handle": "tansacmeli",
+      "children": [
+        { "title": "ქალის", "handle": "qalis-tansacmeli" },
+        { "title": "კაცის", "handle": "kacis-tansacmeli" },
+        { "title": "საბავშვო", "handle": "sabavshvo-tansacmeli" }
+      ]
+    },
+    {
+      "title": "ჭურჭელი",
+      "handle": "churcheli",
+      "children": [
+        { "title": "თეფშები და თასები", "handle": "tefshebi-da-tasebi" },
+        { "title": "ჭიქები და ფინჯნები", "handle": "chiqebi-da-finjnebi" },
+        { "title": "ქვაბები და ტაფები", "handle": "qvabebi-da-tafebi" },
+        { "title": "დანა-ჩანგალი", "handle": "dana-changali" }
+      ]
+    },
+    {
+      "title": "აქსესუარები",
+      "handle": "aqsesuarebi",
+      "children": [
+        { "title": "ჩანთები", "handle": "chantebi" },
+        { "title": "საათები", "handle": "saatebi" },
+        { "title": "სამკაულები", "handle": "samkaulebi" },
+        { "title": "ქამრები", "handle": "qamrebi" }
+      ]
+    },
+    {
+      "title": "სახლის ტექსტილი",
+      "handle": "sakhlis-tekstili",
+      "children": [
+        { "title": "თეთრეული", "handle": "tetreuli" },
+        { "title": "პირსახოცები", "handle": "pirsakhocebi" },
+        { "title": "პლედები", "handle": "pledebi" }
+      ]
+    }
+  ],
+  "products": [
+    { "title": "ქალის ბამბის მაისური", "handle": "test-qalis-maisuri", "category": "qalis-tansacmeli", "price": "29.00", "compareAt": "39.00", "description": "100% ბამბა, თავისუფალი მორგება. (სატესტო პროდუქტი)" },
+    { "title": "კაცის ჯინსის შარვალი", "handle": "test-kacis-jinsi", "category": "kacis-tansacmeli", "price": "79.00", "description": "კლასიკური ჭრა, მუქი ლურჯი. (სატესტო პროდუქტი)" },
+    { "title": "საბავშვო ქურთუკი", "handle": "test-sabavshvo-qurtuki", "category": "sabavshvo-tansacmeli", "price": "65.00", "compareAt": "89.00", "description": "თბილი და მსუბუქი ზამთრის ქურთუკი. (სატესტო პროდუქტი)" },
+    { "title": "ფაიფურის თეფშების ნაკრები (6 ც)", "handle": "test-tefshebis-nakrebi", "category": "tefshebi-da-tasebi", "price": "45.00", "description": "თეთრი ფაიფური, ჭურჭლის სარეცხი მანქანისთვის უსაფრთხო. (სატესტო პროდუქტი)" },
+    { "title": "კერამიკული ფინჯანი 350 მლ", "handle": "test-keramikuli-finjani", "category": "chiqebi-da-finjnebi", "price": "12.00", "compareAt": "15.00", "description": "ხელნაკეთი კერამიკა. (სატესტო პროდუქტი)" },
+    { "title": "ტაფა ანტიმიწებებადი 28 სმ", "handle": "test-tafa-28", "category": "qvabebi-da-tafebi", "price": "55.00", "description": "ინდუქციურ ქურაზე გამოსაყენებელი. (სატესტო პროდუქტი)" },
+    { "title": "ტყავის ხელჩანთა", "handle": "test-tyavis-khelchanta", "category": "chantebi", "price": "149.00", "compareAt": "199.00", "description": "ნატურალური ტყავი, შავი ფერი. (სატესტო პროდუქტი)" },
+    { "title": "კლასიკური მაჯის საათი", "handle": "test-majis-saati", "category": "saatebi", "price": "120.00", "description": "უჟანგავი ფოლადი, წყალგაუმტარი. (სატესტო პროდუქტი)" },
+    { "title": "ვერცხლის საყურეები", "handle": "test-vercxlis-sayureebi", "category": "samkaulebi", "price": "49.00", "description": "925 სინჯის ვერცხლი. (სატესტო პროდუქტი)" },
+    { "title": "საწოლის თეთრეულის ნაკრები (ორადგილიანი)", "handle": "test-tetreulis-nakrebi", "category": "tetreuli", "price": "89.00", "compareAt": "110.00", "description": "100% ბამბა, სატინი. (სატესტო პროდუქტი)" },
+    { "title": "აბაზანის პირსახოცი 70x140", "handle": "test-pirsakhoci", "category": "pirsakhocebi", "price": "25.00", "description": "რბილი, კარგად შემწოვი. (სატესტო პროდუქტი)" },
+    { "title": "თბილი პლედი 150x200", "handle": "test-pledi", "category": "pledebi", "price": "59.00", "description": "მიკროფიბრა, რბილი და თბილი. (სატესტო პროდუქტი)" }
+  ]
+}
